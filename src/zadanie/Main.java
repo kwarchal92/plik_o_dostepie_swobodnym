@@ -22,7 +22,20 @@ class File1
         raf.close(); //zamkniecie pliku
     }
 
+    public void odczytPliku()
+        throws IOException
+    {
+        RandomAccessFile raf = new RandomAccessFile("pomiary.dat", "r");
+        //"r" otwarcie pliku o dostepie swobodnym tylko w trybie odczytu
 
+        for (int i = 0; i < tablica.length; i+=2)
+        {
+            raf.seek(8*i);//typ double ma 8 bajtow
+            d = raf.readDouble(); //odczyt danych z pliku
+            System.out.println(d);
+        }
+        raf.close(); //zamkniecie pliku
+    }
 
 }
 
@@ -33,6 +46,9 @@ public class Main {
     {
         File1 file = new File1();
 
+        System.out.println("Program wyswietla co drugi pomiar zapisany wczesniej w pliku pomiary.dat");
+
         file.zapisdoPliku();
+        file.odczytPliku();
     }
 }
